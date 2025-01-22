@@ -1,0 +1,358 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Pro Combat Initiation Script (Donut share :Rage:)",
+   Icon = 0,
+   LoadingTitle = "Hack Initiation",
+   LoadingSubtitle = "by Nyx_sv",
+   Theme = "Dark",
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false,
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil,
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
+   },
+
+   KeySystem = True,
+   KeySettings = {
+      Title = "2-step Verification",
+      Subtitle = "Key Needed",
+      Note = "Goofy Guest",
+      FileName = "Key",
+      SaveKey = true,
+      GrabKeyFromSite = false,
+      Key = {"Goofy Guest"}
+   }
+})
+
+-- Enemies Tab
+local EnemiesTab = Window:CreateTab("Enemies", 4483362458)
+
+EnemiesTab:CreateButton({
+   Name = "Bring Enemies",
+   Callback = function()
+       local lp = game.Players.LocalPlayer
+       local path = game.Workspace:WaitForChild("Enemies") -- Ensure the path exists
+       getgenv().Farm = true
+       local distance = 10 -- Adjustable distance
+
+       local function BringNPCs()
+           while getgenv().Farm do
+               local playerHRP = lp.Character:WaitForChild("HumanoidRootPart")
+               for _, npc in ipairs(path:GetChildren()) do
+                   local npcHRP = npc:FindFirstChild("HumanoidRootPart")
+                   local npcHumanoid = npc:FindFirstChild("Humanoid")
+                   if npcHRP and npcHumanoid and npcHumanoid.Health > 0 then
+                       npcHRP.CFrame = playerHRP.CFrame + playerHRP.CFrame.LookVector * distance
+                   end
+               end
+               task.wait(0.1) -- Adjust the wait time as needed
+           end
+       end
+
+       BringNPCs()
+   end
+})
+
+EnemiesTab:CreateButton({
+   Name = "Kill Jason Instantly (Only works in single player)",
+   Callback = function()
+       -- Locate the Enemies folder in the workspace
+       local enemiesFolder = workspace:FindFirstChild("Enemies")
+       if not enemiesFolder then
+           warn("Enemies folder not found in workspace!")
+           return
+       end
+
+       -- Locate Jason within the Enemies folder
+       local JasonEnemy = enemiesFolder:FindFirstChild("Jason")
+       if not JasonEnemy then
+           warn("Jason not found in Enemies folder!")
+           return
+       end
+
+       -- Locate Jason's Humanoid
+       local humanoid = JasonEnemy:FindFirstChild("Humanoid")
+       if humanoid then
+           humanoid.Health = 0
+           print("Jason has been killed successfully!")
+       else
+           warn("Humanoid not found for Jason!")
+       end
+   end
+})
+
+-- Player Tab
+local PlayerTab = Window:CreateTab("Player", 4483362458)
+
+PlayerTab:CreateButton({
+   Name = "Inf dashes",
+   Callback = function()
+      game.Players.LocalPlayer.Character:SetAttribute("DashRegenTime", 0.01)
+   end,
+})
+
+PlayerTab:CreateButton({
+   Name = "NO aggro (good for going away if you have a teammate) BROKEN",
+   Callback = function()
+      game.Players.LocalPlayer.Character:SetAttribute("AggroMultiplier", 0)
+   end,
+})
+
+PlayerTab:CreateButton({
+   Name = "GODLY aggro (good for saving a teammate) BROKEN",
+   Callback = function()
+      game.Players.LocalPlayer.Character:SetAttribute("AggroMultiplier", 9999999999999999)
+   end,
+})
+
+PlayerTab:CreateButton({
+   Name = "Inf Tix (Test)",
+   Callback = function()
+      game.Players.LocalPlayer.PlayerData:SetAttribute("TIX", 9999999999999999)
+   end,
+})
+
+-- Misc Tab
+local MiscTab = Window:CreateTab("Misc", 4483362458)
+
+MiscTab:CreateButton({
+   Name = "Load Infinite Yield",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+   end,
+})
+
+MiscTab:CreateButton({
+   Name = "Load Dark Dex",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+   end,
+})
+
+-- Weapons Tab
+local WeaponsTab = Window:CreateTab("Weapons", 4483362458)
+
+WeaponsTab:CreateSection("Slingshot + Variants")
+
+WeaponsTab:CreateButton({
+   Name = "Slingshot No Cooldown",
+   Callback = function()
+       local Slingshot = game.Players.LocalPlayer.Backpack:FindFirstChild("Slingshot")
+       if not Slingshot then
+           warn("Slingshot not found in Backpack!")
+           return
+       end
+
+       -- Update Slingshot attributes
+       Slingshot:SetAttribute("Firerate", 0.01)
+       Slingshot:SetAttribute("Capacity", math.huge)
+       Slingshot:SetAttribute("ChargeRate", 0)
+       Slingshot:SetAttribute("Spread", 1.35)
+
+       -- Debugging
+       print("Updated Firerate:", Slingshot:GetAttribute("Firerate"))
+       print("Updated Capacity:", Slingshot:GetAttribute("Capacity"))
+   end
+})
+
+WeaponsTab:CreateButton({
+   Name = "Scatterblaster No Cooldown (LAG WARNING IF SPAMMED depends on pc)",
+   Callback = function()
+       local Scatterblaster = game.Players.LocalPlayer.Backpack:FindFirstChild("Scatterblaster")
+       if not Scatterblaster then
+           warn("Scatterblaster not found in Backpack!")
+           return
+       end
+
+       -- Update Scatterblaster attributes
+       Scatterblaster:SetAttribute("Firerate", 0.001)
+       Scatterblaster:SetAttribute("Spread", 1.35)
+
+       -- Debugging
+       print("Updated Firerate:", Scatterblaster:GetAttribute("Firerate"))
+       print("Updated Capacity:", Scatterblaster:GetAttribute("Capacity"))
+   end
+})
+
+WeaponsTab:CreateButton({
+   Name = "Flamethrower No Cooldown BROKEN",
+   Callback = function()
+       local Flamethrower = game.Players.LocalPlayer.Backpack:FindFirstChild("Scatterblaster")
+       if not Flamethrower then
+           warn("Flamethrower not found in Backpack!")
+           return
+       end
+
+       -- Update Flamethrower attributes
+       Flamethrower:SetAttribute("Cooldown", 0.001)
+       Flamethrower:SetAttribute("EjectRate", 0.001)
+       Flamethrower:SetAttribute("EjectUse", 0.001)
+       Flamethrower:SetAttribute("Intake", 999)
+
+
+       -- Debugging
+       print("Updated Firerate:", Flamethrower:GetAttribute("Cooldown"))
+   end
+})
+
+WeaponsTab:CreateSection("Swords")
+
+WeaponsTab:CreateButton({
+   Name = "Sword + Variants No Cooldown",
+   Callback = function()
+       local player = game.Players.LocalPlayer
+       local backpack = player:FindFirstChild("Backpack")
+       
+       if not backpack then
+           warn("Backpack not found!")
+           return
+       end
+
+       -- Validate and update attributes for specific items
+       local function setAttributes(itemName, attributes)
+           local item = backpack:FindFirstChild(itemName)
+           if item then
+               for attr, value in pairs(attributes) do
+                   item:SetAttribute(attr, value)
+               end
+           else
+               warn(itemName .. " not found in Backpack!")
+           end
+       end
+
+       -- Define items and their attributes to update
+       local swordAttributes = {
+           Swingrate = 0.001,
+           LungeRate = 0.001,
+       }
+       setAttributes("Sword", swordAttributes)
+       setAttributes("Katana", swordAttributes)
+
+       local firebrandAttributes = {
+           Windup = 0.01,
+           Swingrate = 0.01,
+           LungeRate = 0.01,
+       }
+       setAttributes("Firebrand", firebrandAttributes)
+   end,
+})
+
+WeaponsTab:CreateSection("Paintball no cooldown")
+
+WeaponsTab:CreateButton({
+   Name = "Paintball gun no cooldown",
+   Callback = function()
+       local player = game.Players.LocalPlayer
+       local backpack = player:FindFirstChild("Backpack")
+       
+       if not backpack then
+           warn("Backpack not found!")
+           return
+       end
+
+       local paintballGun = backpack:FindFirstChild("Paintball Gun")
+       if not paintballGun then
+           warn("Paintball Gun not found in Backpack!")
+           return
+       end
+
+       -- Update PaintballGun attributes
+       paintballGun:SetAttribute("Firerate", 0.001)
+       print("Paintball Gun Firerate updated to:", paintballGun:GetAttribute("Firerate"))
+   end,
+})
+
+WeaponsTab:CreateSection("Trowel Variants")
+
+WeaponsTab:CreateButton({
+   Name = "Hammah No cooldown + Inf Repair Range",
+   Callback = function()
+       local player = game.Players.LocalPlayer
+       local backpack = player:FindFirstChild("Backpack")
+       
+       if not backpack then
+           warn("Backpack not found!")
+           return
+       end
+
+       local Hammer = backpack:FindFirstChild("Hammer")
+       if not Hammer then
+           warn("Hammer not found in Backpack!")
+           return
+       end
+
+       -- Update Hammer attributes
+       Hammer:SetAttribute("Cooldown", 0.001)
+       Hammer:SetAttribute("PocketCooldown", 0.001)
+       Hammer:SetAttribute("PocketThrowCooldown", 0.001)
+       print("Hammer Firerate updated to:", Hammer:GetAttribute("Firerate"))
+   end,
+})
+
+WeaponsTab:CreateButton({
+   Name = "Wrench no cooldown",
+   Callback = function()
+       local player = game.Players.LocalPlayer
+       local backpack = player:FindFirstChild("Backpack")
+       
+       if not backpack then
+           warn("Backpack not found!")
+           return
+       end
+
+       local Wrench = backpack:FindFirstChild("Wrench")
+       if not Wrench then
+           warn("Wrench not found in Backpack!")
+           return
+       end
+
+       -- Update Wrench attributes
+       Wrench:SetAttribute("ThrowCooldown", 0.001)
+       Wrench:SetAttribute("PlaceCooldown", 0.001)
+       Wrench:SetAttribute("TurretCooldown", 0.001)
+       print("Wrench Firerate updated to:", Wrench:GetAttribute("Firerate"))
+   end,
+})
+
+WeaponsTab:CreateSection("Rocket Launchers")
+
+WeaponsTab:CreateButton({
+   Name = "Rocket Launcher + Variants No Cooldown (Can't spam 😔)",
+   Callback = function()
+       local player = game.Players.LocalPlayer
+       local backpack = player:FindFirstChild("Backpack")
+       
+       if not backpack then
+           warn("Backpack not found!")
+           return
+       end
+
+       -- Validate and update attributes for specific items
+       local function setAttributes(itemName, attributes)
+           local item = backpack:FindFirstChild(itemName)
+           if item then
+               for attr, value in pairs(attributes) do
+                   item:SetAttribute(attr, value)
+               end
+           else
+               warn(itemName .. " not found in Backpack!")
+           end
+       end
+
+       -- Define items and their attributes to update
+       local RocketAttributes = {
+           Cooldown = 0.001,
+       }
+       setAttributes("Rocket Launcher", RocketAttributes)
+       setAttributes("Multi-Rocket Launcher", RocketAttributes)
+   end,
+})
