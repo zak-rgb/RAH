@@ -174,8 +174,7 @@ WeaponsTab:CreateButton({
        end
 
        -- Update Scatterblaster attributes
-       Scatterblaster:SetAttribute("Firerate", 0.001)
-       Scatterblaster:SetAttribute("Spread", 1.35)
+       Scatterblaster:SetAttribute("Firerate", 0.5)
 
        -- Debugging
        print("Updated Firerate:", Scatterblaster:GetAttribute("Firerate"))
